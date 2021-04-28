@@ -4,14 +4,39 @@ import styles from './styles';
 
 // import { Container } from './styles';
 
-const FilterButton = () => {
+const FilterButton = props => {
   return (
     <View style={styles.filterButtonWrapper}>
-      <TouchableOpacity style={styles.filterButton}>
-        <Text style={styles.filterText}>ALL</Text>
+      <TouchableOpacity
+        style={[
+          styles.filterButton,
+          {backgroundColor: props.filter === 'All' ? '#177AFB' : 'transparent'},
+        ]}
+        onPress={props.allPress}>
+        <Text
+          style={[
+            styles.filterText,
+            {color: props.filter === 'All' ? '#FFFFFF' : '#177AFB'},
+          ]}>
+          ALL
+        </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.filterButton}>
-        <Text style={styles.filterText}>DONE</Text>
+      <TouchableOpacity
+        style={[
+          styles.filterButton,
+          {
+            backgroundColor:
+              props.filter === 'Done' ? '#177AFB' : 'transparent',
+          },
+        ]}
+        onPress={props.donePress}>
+        <Text
+          style={[
+            styles.filterText,
+            {color: props.filter === 'Done' ? '#FFFFFF' : '#177AFB'},
+          ]}>
+          DONE
+        </Text>
       </TouchableOpacity>
     </View>
   );

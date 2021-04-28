@@ -12,9 +12,10 @@ import Task from './src/components/Task';
 import FilterButton from './src/components/FilterButton';
 
 const TodoList = () => {
-  const [task, setTask] = useState('');
-  const [taskList, setTaskList] = useState([]);
-  const [doneList, setDoneList] = useState([]);
+  const [task, setTask] = useState(''); // Estado criado para armazenar o que o usuário está digitando.
+  const [taskList, setTaskList] = useState([]); // Estado criado para armazenara lista de tarefas.
+  const [doneList, setDoneList] = useState([]); // Estado criado para armazenar os itens concluídos.
+  const [filter, setFilter] = useState('All');
   return (
     <View style={styles.container}>
       <Header />
@@ -31,9 +32,9 @@ const TodoList = () => {
         <TouchableOpacity
           onPress={() => {
             setTaskList([
-              ...taskList, //Espalhar os itens que ja existe e salvar em taskList
+              ...taskList, // Espalhar os itens que ja existe e salvar em taskList.
               {
-                id: taskList.length,
+                id: taskList.length, // Torna o valor o id equivalente ao tamanho do array.
                 task: task,
               },
             ]);
@@ -42,19 +43,24 @@ const TodoList = () => {
           <Text style={styles.addButton}>+</Text>
         </TouchableOpacity>
       </View>
-      <FilterButton />
+      <FilterButton
+        allPress={() => setFilter('All')}
+        donePress={() => setFilter('Done')}
+        filter={filter}
+      />
       <Text style={styles.titleTask}>TODAY TASKS</Text>
       <FlatList
-        data={taskList}
+        data={filter === 'All' ? taskList : doneList}
         renderItem={({item}) => (
           <Task
             taskTitle={item.task}
-            done={doneList.some(element => element.id === item.id)}
+            done={doneList.some(element => element.id === item.id)} // Checagem se o elemento selecionado é o mesmo que o item passado na task.
             onTaskPress={() => {
               if (doneList.some(element => element.id === item.id)) {
                 const newList = doneList.filter(
                   element => element.id !== item.id,
-                );
+                ); // Estrutura condicional onde: Caso o elemento selecionado seja diferente do item passado na task, crie um novo array com os novos elementos.
+                //caso contrario, acesse a doneList e adicione a nova task e o novo id.
                 setDoneList(newList);
               } else {
                 setDoneList([...doneList, {id: item.id, task: item.task}]);
