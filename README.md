@@ -1,5 +1,8 @@
 ## React Native Todo List
 
+![](todoList.gif)
+
+
 O projeto trata-se de uma lista de tarefas simples, onde o usuário poderá marcar e desmarcar itens, além de filtrá-los por todos e concluídos. 
 
 ##  Feito com
