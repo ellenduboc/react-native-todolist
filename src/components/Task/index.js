@@ -3,8 +3,6 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import { Container } from './styles';
-
 const Task = props => {
   return (
     <View style={styles.headerTask}>

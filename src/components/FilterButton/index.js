@@ -2,8 +2,6 @@ import React from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import styles from './styles';
 
-// import { Container } from './styles';
-
 const FilterButton = props => {
   return (
     <View style={styles.filterButtonWrapper}>

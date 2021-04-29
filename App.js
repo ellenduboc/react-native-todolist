@@ -15,7 +15,7 @@ const TodoList = () => {
   const [task, setTask] = useState(''); // Estado criado para armazenar o que o usuário está digitando.
   const [taskList, setTaskList] = useState([]); // Estado criado para armazenara lista de tarefas.
   const [doneList, setDoneList] = useState([]); // Estado criado para armazenar os itens concluídos.
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('All'); // Estado criado para armazenar o valor do filtro.
   return (
     <View style={styles.container}>
       <Header />
@@ -32,9 +32,9 @@ const TodoList = () => {
         <TouchableOpacity
           onPress={() => {
             setTaskList([
-              ...taskList, // Espalhar os itens que ja existe e salvar em taskList.
+              ...taskList, // Espalhar os itens que ja existem.
               {
-                id: taskList.length, // Torna o valor o id equivalente ao tamanho do array.
+                id: taskList.length, // Torna o valor do id equivalente ao tamanho do array.
                 task: task,
               },
             ]);
@@ -54,16 +54,15 @@ const TodoList = () => {
         renderItem={({item}) => (
           <Task
             taskTitle={item.task}
-            done={doneList.some(element => element.id === item.id)} // Checagem se o elemento selecionado é o mesmo que o item passado na task.
+            done={doneList.some(element => element.id === item.id)} // Checagem se o elemento atual é o mesmo que o item passado pelo renderItem.
             onTaskPress={() => {
               if (doneList.some(element => element.id === item.id)) {
                 const newList = doneList.filter(
                   element => element.id !== item.id,
-                ); // Estrutura condicional onde: Caso o elemento selecionado seja diferente do item passado na task, crie um novo array com os novos elementos.
-                //caso contrario, acesse a doneList e adicione a nova task e o novo id.
-                setDoneList(newList);
+                ); // Estrutura condicional onde: Caso o elemento selecionado seja igual ao item presente na doneList, crie uma newList, removendo ele e passando os valores restantes.
+                setDoneList(newList); // Salve no estado doneList essa nova lista.
               } else {
-                setDoneList([...doneList, {id: item.id, task: item.task}]);
+                setDoneList([...doneList, {id: item.id, task: item.task}]); // Caso contrario, acesse o estado da doneList e adicione a nova task e o novo id.
               }
             }}
           />
